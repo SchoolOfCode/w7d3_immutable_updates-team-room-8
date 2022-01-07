@@ -22,14 +22,14 @@ export function replaceItem(array, item, index) {
   const newArr = [...array.slice(0, index), item, ...array.slice(index + 1)];
   return array, newArr;
 }
-console.log(replaceItem(["bread", "cheese", "ham", "bread"], "chicken", 2));
+//console.log(replaceItem(["bread", "cheese", "ham", "bread"], "chicken", 2));
 
 // Immutably remove an item at a specific position/index within an array
 export function removeItem(array, index) {
   const newArr = [...array.slice(0, index), ...array.slice(index + 1)];
   return array, newArr;
 }
-console.log(removeItem(["bread", "cheese", "ham", "bread"], 1));
+//console.log(removeItem(["bread", "cheese", "ham", "bread"], 1));
 
 //Objects:
 
@@ -42,14 +42,21 @@ export function updateName(object, newName) {
   const newObj = { ...object, name: newName };
   return object, newObj;
 }
-console.log(updateName({ name: "Lambert", age: 99, height: "6ft" }, "Lammy"));
+//console.log(updateName({ name: "Lambert", age: 99, height: "6ft" }, "Lammy"));
+
 // Immutably update the object so that the value under the "needsACupOfTea" property becomes the opposite of what it was.
 // Any other properties in the object should be maintained.
 // For example calling:
 //     toggleTeaStatus({ name: "Abe", needsACupOfTea: false })
 // should give back:
 //     { name: "Abe", needsACupOfTea: true }
-export function toggleTeaStatus(object) {}
+export function toggleTeaStatus(object) {
+  let variable = !object.needsACupOfTea;
+  console.log("Variable " + variable);
+  const newObj = { ...object, needsACupOfTea: variable };
+  return newObj;
+}
+//console.log(toggleTeaStatus({ name: "Ben", needsACupOfTea: true }));
 
 // Combo Time!!
 
@@ -59,4 +66,23 @@ export function toggleTeaStatus(object) {}
 //    toggleListItemCompleted([{ task: "Cooking", completed: true }, { task: "Walking", completed: false }], 1)
 // should give back:
 //    [{ task: "Cooking", completed: true }, { task: "Walking", completed: true }]
-export function toggleListItemCompleted(array, index) {}
+export function toggleListItemCompleted(array, index) {
+  const variable = !array[index].completed;
+  const newArr = [
+    ...array.slice(0, index),
+    { ...array[index], completed: variable },
+    ...array.slice(index + 1),
+  ];
+
+  return newArr;
+}
+console.log(
+  toggleListItemCompleted(
+    [
+      { task: "Do washing up", completed: false },
+      { task: "Do code wars", completed: false },
+      { task: "Send post card", completed: false },
+    ],
+    1
+  )
+);
